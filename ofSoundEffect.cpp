@@ -35,6 +35,32 @@ void ofSoundEffectPassthrough::process( float* input, float *output, int numFram
 }
 
 
+//// JOSH
+//--------------------------------------------------------------
+void ofSoundEffect::clearInputs(){
+    lock();
+    ofSoundSink::input = NULL;
+    unlock();
+    // check for existing input
+	if ( input != NULL )
+	{
+	//	ofLog( OF_LOG_ERROR, "ofSoundUnit: can't connect '%s' (%x) to '%s' (%x): it already has an input");
+	} else {
+    //    ofLog( OF_LOG_ERROR, "ofSoundUnit: DELLETED CUNT");
+    }
+}
+
+//--------------------------------------------------------------
+void ofSoundEffect::setActive(bool _bIsActive){
+    bIsActive = _bIsActive;
+}
+
+//--------------------------------------------------------------
+bool ofSoundEffect::isActive(){
+    return bIsActive;
+}
+
+
 
 
 void ofSoundEffectVolume::process( float* input, float* output, int numFrames, int numInChannels, int numOutChannels )

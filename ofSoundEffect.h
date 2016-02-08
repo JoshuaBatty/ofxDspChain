@@ -34,6 +34,11 @@ public:
 	/// Override this function to do your own processing. Be sure to match numInChannels and numOutChannels
 	virtual void process( float* input, float *output, int numFrames, int numInChannels, int numOutChannels ) = 0;
 	
+    //// JOSH
+    virtual void clearInputs();
+    virtual void setActive(bool _bIsActive);
+    virtual bool isActive();
+    bool bIsActive;
 	
 	/// implementation of the generate function from ofSoundSource
 	void audioRequested( float* buffer, int numFrames, int numChannels );
