@@ -70,7 +70,7 @@ protected:
 
 
 
-/** ofSoundBuffer
+/** ofAudioBuffer
  
  Wrapper for an interleaved floating point buffer holding a fixed number of frames
  of a fixed number of channels of audio.
@@ -78,7 +78,7 @@ protected:
  @author damian
  */
 
-class ofSoundBuffer
+class ofAudioBuffer // Changed to ofAudioBuffer
 {
 public:
 	
@@ -86,13 +86,13 @@ public:
 	int numFrames;
 	int numChannels;
 	
-	ofSoundBuffer();
-	ofSoundBuffer( const ofSoundBuffer& other );
-	ofSoundBuffer( int nFrames, int nChannels );
-	ofSoundBuffer& operator=( const ofSoundBuffer& other );
+	ofAudioBuffer();
+	ofAudioBuffer( const ofAudioBuffer& other );
+	ofAudioBuffer( int nFrames, int nChannels );
+	ofAudioBuffer& operator=( const ofAudioBuffer& other );
 	
-	~ofSoundBuffer();
-	void copyFrom( const ofSoundBuffer& other );	
+	~ofAudioBuffer();
+	void copyFrom( const ofAudioBuffer& other );	
 	/// Set audio data to 0.
 	void clear();
 	
@@ -151,7 +151,7 @@ protected:
 	
 	
 	ofSoundSource* input;
-	ofSoundBuffer inputBuffer;
+	ofAudioBuffer inputBuffer;
 
 	int sampleRate;
 };
@@ -207,7 +207,7 @@ private:
 	struct MixerInput
 	{
 		ofSoundSource* input;
-		ofSoundBuffer inputBuffer;
+		ofAudioBuffer inputBuffer;
 		float volume;
 		float pan;
 		MixerInput( ofSoundSource* i, float v, float p )

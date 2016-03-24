@@ -135,31 +135,31 @@ bool ofSoundSink::addingInputWouldCreateCycle( ofSoundSource* test )
 
 
 
-ofSoundBuffer::ofSoundBuffer() { 
+ofAudioBuffer::ofAudioBuffer() { 
 	numFrames = 0; 
 	numChannels = 0; 
 	buffer = NULL; 
 }
-ofSoundBuffer::ofSoundBuffer( const ofSoundBuffer& other ) { 
+ofAudioBuffer::ofAudioBuffer( const ofAudioBuffer& other ) { 
 	copyFrom( other ); 
 }
-ofSoundBuffer::ofSoundBuffer( int nFrames, int nChannels ) { 
+ofAudioBuffer::ofAudioBuffer( int nFrames, int nChannels ) { 
 	numFrames = nFrames; 
 	numChannels = nChannels; 
 	buffer = new float[nFrames*nChannels]; 
 }
-ofSoundBuffer& ofSoundBuffer::operator=( const ofSoundBuffer& other ) { 
+ofAudioBuffer& ofAudioBuffer::operator=( const ofAudioBuffer& other ) { 
 	copyFrom( other ); 
 	return *this; 
 }
 
-ofSoundBuffer::~ofSoundBuffer() { 
+ofAudioBuffer::~ofAudioBuffer() { 
 	if ( buffer ) {
 		delete[] buffer; 
 	}
 }
 
-void ofSoundBuffer::copyFrom( const ofSoundBuffer& other ) { 
+void ofAudioBuffer::copyFrom( const ofAudioBuffer& other ) { 
 	numFrames = 0; numChannels = 0;
 	if ( other.buffer ) {
 		allocate( other.numFrames, other.numChannels );
@@ -171,14 +171,14 @@ void ofSoundBuffer::copyFrom( const ofSoundBuffer& other ) {
 }
 
 /// Set audio data to 0.
-void ofSoundBuffer::clear() { 
+void ofAudioBuffer::clear() { 
 	if ( buffer ) { 
 		memset( buffer, 0, sizeof(float)*numFrames*numChannels); 
 	}
 }
 
 /// Allocate the buffer to the given size if necessary.
-void ofSoundBuffer::allocate( int nFrames, int nChannels ) { 
+void ofAudioBuffer::allocate( int nFrames, int nChannels ) { 
 	if ( !buffer || numFrames != nFrames || numChannels != nChannels ) {
 		numFrames = nFrames; numChannels = nChannels; 
 		if ( buffer ) {
@@ -189,7 +189,7 @@ void ofSoundBuffer::allocate( int nFrames, int nChannels ) {
 }
 
 /// Copy just a single channel to output. output should have space for numFrames floats.
-void ofSoundBuffer::copyChannel( int channel, float* output ) const {
+void ofAudioBuffer::copyChannel( int channel, float* output ) const {
 	if ( buffer && channel < numChannels ) {
 		float * buffer_ptr = buffer;
 		for ( int i=0; i<numFrames; i++ ) {
@@ -200,14 +200,14 @@ void ofSoundBuffer::copyChannel( int channel, float* output ) const {
 }
 
 /// Copy safely to out. Copy as many frames as possible, repeat channels as necessary.
-void ofSoundBuffer::copyTo( float* outBuffer, int outNumFrames, int outNumChannels ) {
+void ofAudioBuffer::copyTo( float* outBuffer, int outNumFrames, int outNumChannels ) {
 	if ( numFrames == 0 || numChannels == 0 ) {
-		ofLog( OF_LOG_WARNING, "ofSoundBuffer::copyTo: copy requested on empty buffer, returning nothing (check your addInputTo() methods!)" );
+		ofLog( OF_LOG_WARNING, "ofAudioBuffer::copyTo: copy requested on empty buffer, returning nothing (check your addInputTo() methods!)" );
 		memset( outBuffer, 0, sizeof(float)*outNumFrames*outNumChannels );
 	}
 	if ( outNumFrames>numFrames ||  outNumChannels>numChannels ) {
-		ofLog( OF_LOG_WARNING, "ofSoundBuffer::copyTo: %i frames requested but only %i	are available", outNumFrames, numFrames );
-		ofLog( OF_LOG_WARNING, "ofSoundBuffer::copyTo: %i channels requested but only %i are available, looping to make up the difference", outNumChannels, numChannels );
+		ofLog( OF_LOG_WARNING, "ofAudioBuffer::copyTo: %i frames requested but only %i	are available", outNumFrames, numFrames );
+		ofLog( OF_LOG_WARNING, "ofAudioBuffer::copyTo: %i channels requested but only %i are available, looping to make up the difference", outNumChannels, numChannels );
 
 		for ( int i=0; i<min(numFrames,outNumFrames); i++ ) {
 			for ( int j=0; j<outNumChannels; j++ ) {

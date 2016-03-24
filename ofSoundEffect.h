@@ -50,7 +50,7 @@ public:
 
 /** ofSoundEffectPassthrough
  
- An ofSoundEffect that simply passes audio through, allowing access to the ofSoundBuffer of audio 
+ An ofSoundEffect that simply passes audio through, allowing access to the ofAudioBuffer of audio 
  passing through it. 
  
  @author damian
@@ -64,7 +64,7 @@ public:
 	virtual void process( float* input, float *output, int numFrames, int numInChannels, int numOutChannels );
 	
 	/// return the buffer we saw as we passed it through
-	ofSoundBuffer& getBuffer() { return inputBuffer; }
+	ofAudioBuffer& getBuffer() { return inputBuffer; }
 };
 
 /** ofSoundEffectVolume
